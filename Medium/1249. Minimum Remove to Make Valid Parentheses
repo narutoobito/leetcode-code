@@ -1,0 +1,33 @@
+class Solution {
+public:
+    string minRemoveToMakeValid(string s) {
+        stack<int> st;
+        unordered_set<int>us;
+        int cur=0;
+        string ans ="";
+        for(auto i=0;i<s.size();i++){
+            if(s[i]=='('){
+                cur++;
+                st.push(i);
+            }
+            if(s[i]==')' and cur>0){
+                cur--;
+                st.pop();
+            }
+            else if(s[i]==')' and cur==0)us.insert(i);
+
+        }
+
+        
+        while(!st.empty()){
+            us.insert(st.top());
+            st.pop();
+        }
+
+        for(auto i=0;i<s.size();i++){
+            if(us.count(i))continue;
+            ans+=s[i];
+        }
+        return ans;
+    }
+};
