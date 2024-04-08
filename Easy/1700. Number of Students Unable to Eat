@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int countStudents(vector<int>& students, vector<int>& sandwiches) {
+        int ind=0;
+        int one=0,zero=0;
+        for(auto i:students){
+            one+=i==1;
+            zero+=i==0;
+        }
+        for(auto i:sandwiches){
+            if(i==1 and one>0)one--;
+            else if(i==1 and one<1)return zero;
+            if(i==0 and zero>0)zero--;
+            else if(i==0 and zero<1)return one;
+        }
+        return 0;
+    }
+};
