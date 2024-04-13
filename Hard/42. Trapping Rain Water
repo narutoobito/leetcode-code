@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int trap(vector<int>& heights) {
+        int n=heights.size();
+        int l=0,r=n-1;
+        int total=0;
+        int prevL=heights[l],prevR=heights[r];
+        while(l<r){
+            if(heights[l]>heights[r]){
+                r--;
+            }
+            else{
+                l++;
+            }
+            prevL=max(prevL,heights[l]);
+            prevR=max(prevR,heights[r]);
+            total+=max(0,min(prevL,prevR)-heights[l]);
+            total+=max(min(prevL,prevR)-heights[r],0);
+
+        }
+        return total;
+    }
+};
