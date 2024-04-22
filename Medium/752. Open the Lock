@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int openLock(vector<string>& deadends, string target) {
+        unordered_set<string>st(deadends.begin(),deadends.end());
+        queue<string>q;
+        q.push(target);
+        if(st.count(target))return -1;
+
+        for(int steps=0;!q.empty();steps++){
+            for(auto i=q.size();i>0;i--){
+                auto cur=q.front();q.pop();
+                if(cur=="0000")return steps;
+
+                for(auto ele:func(cur)){
+                    if(st.count(ele))continue;
+                    st.insert(ele);
+                    q.push(ele);
+                }
+            }
+        }
+        return -1;
+    }
+    vector<string> func(const string& code) {
+        vector<string> result;
+        for (int i = 0; i < 4; i++) {
+            for (int diff = -1; diff <= 1; diff += 2) {
+                string nei = code;
+                nei[i] = (nei[i] - '0' + diff + 10) % 10 + '0';
+                result.push_back(nei);
+            }
+        }
+        return result;
+    }
+};
