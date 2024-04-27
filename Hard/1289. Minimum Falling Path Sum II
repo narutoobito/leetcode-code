@@ -1,0 +1,45 @@
+class Solution {
+public:
+    int minFallingPathSum(vector<vector<int>>& grid) {
+        int sindex=-1,sm=INT_MAX,ss=INT_MAX;
+        int n=grid.size(),m=grid[0].size();
+
+        for(auto i=0;i<m;i++){
+            if(grid[0][i]<sm){
+                ss=sm;
+                sm=grid[0][i];
+                sindex=i;
+            }
+            else if(grid[0][i]<ss){
+                ss=grid[0][i];
+            }
+        }
+        for(auto i=1;i<n;i++){
+            int tsindex=-1,tsm=INT_MAX,tss=INT_MAX;
+            for(auto j=0;j<m;j++){
+                
+                if(j==sindex)grid[i][j]+=ss;
+                else grid[i][j]+=sm;
+
+                if(grid[i][j]<tsm){
+                    tss=tsm;
+                    tsm=grid[i][j];
+                    tsindex=j;
+                }
+                else if(grid[i][j]<tss){
+                    tss=grid[i][j];
+                }
+            }
+            sindex=tsindex,sm=tsm,ss=tss;
+        }
+
+        for(auto i:grid){
+            for(auto j:i){
+                cout<<j<<" ";
+            }
+            cout<<endl;
+        }
+
+        return sm;
+    }
+};
