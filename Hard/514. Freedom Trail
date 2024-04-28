@@ -1,33 +1,30 @@
 class Solution {
 public:
-    using Vec=vector<vector<int>> ;
-    using v=vector<int>;
-    using fun=function<void(int,int)>;
-    vector<int> sumOfDistancesInTree(int n, vector<vector<int>>& edges) {
-        Vec adj(n,v());
-        for(auto e:edges){
-            adj[e[0]].push_back(e[1]);
-            adj[e[1]].push_back(e[0]);
-        }
+    int findRotateSteps(string ring, string key) {
+        int cur=0;
+        unordered_map<char,unordered_map<int,int>>memo;
+        int N=ring.size(),M=key.size();
 
-        v count(n,1),res(n,0);
+        function<int(int,int)> spin=[&](int pos,int tar){
+            if(memo[pos][tar])return memo[pos][tar];
+            if(tar==M){
+                return 0;
+            }
+            int res=INT_MAX;
 
-        fun dfs=[&](int root,int prev){
-            for(auto a:adj[root]){
-                if(a==prev)continue;
-                dfs(a,root);
-                count[root]+=count[a];
-                res[root]+=res[a]+count[a];
+            for(auto i=0;i<N;i++){
+                if(ring[i]==key[tar]){
+                    int cur=min(abs(i-pos),N-abs(i-pos));
+                    res=min(res,1+cur+spin(i,tar+1));
+                }
             }
+            return memo[pos][tar]=res;
         };
-        fun dfs2=[&](int root,int prev){
-            for(auto a:adj[root]){
-                if(a==prev)continue;
-                res[a]=res[root]-count[a]+n-count[a];
-                dfs2(a,root);
-            }
-        };
-        dfs(0,-1);dfs2(0,-1);
-        return res;
+
+        return spin(0,0);
     }
+
+   
+
+
 };
