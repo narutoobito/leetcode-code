@@ -1,0 +1,16 @@
+class Solution {
+public:
+    long long wonderfulSubstrings(string word) {
+        long count[1024]={1}, mask=0,ans=0;
+
+        for(auto w:word){
+            mask^=1<<(w-'a');
+            ans+=count[mask];
+            for(auto i=0;i<10;i++){
+                ans+=count[(mask^(1<<i))];
+            }
+            count[mask]++;
+        }
+        return ans;
+    }
+};
