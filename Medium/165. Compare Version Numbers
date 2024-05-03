@@ -1,0 +1,26 @@
+class Solution {
+public:
+    using func=function<long long(int&,string)>;
+    int compareVersion(string version1, string version2) {
+        func calc=[](int& i, string version){
+            long long v=0;
+            for(;i<version.size();i++){
+                if(version[i]=='.'){
+                    i++;    
+                    break;
+                }
+                if(v==0 and version[i]=='0')continue;
+                v=v*10+(version[i]-'0');
+            }
+            return v;
+        };
+        int i=0,j=0;
+        while(i<version1.size() or j<version2.size()){
+            long long v1=calc(i,version1),v2=calc(j,version2);
+            if(v1>v2)return 1;
+            if(v2>v1)return -1;
+        }
+
+        return 0;
+    }
+};
