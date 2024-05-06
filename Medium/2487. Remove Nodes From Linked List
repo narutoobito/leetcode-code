@@ -1,0 +1,47 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    using func=function<ListNode*(ListNode*)>;
+    ListNode* removeNodes(ListNode* head) {
+        ListNode* start=new ListNode(90);
+        start->next=head;
+
+        func reverseList=[=](ListNode* cur){
+
+            ListNode* prev=NULL;
+
+            while(cur){
+                ListNode* next=cur->next;
+                cur->next=prev;
+                prev=cur;
+                cur=next;
+            }
+     
+            return prev;
+        };
+
+        ListNode* rev= reverseList(head);
+        auto temp=rev;
+
+        while(rev->next){
+            if(rev->next->val<rev->val){
+                rev->next=rev->next->next;
+            }
+            else {
+                rev=rev->next;
+            }
+        }
+        auto ans=reverseList(temp);
+
+        return ans;
+    }
+};
