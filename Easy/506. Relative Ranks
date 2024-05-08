@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<string> findRelativeRanks(vector<int>& score) {
+        vector<int>sorted(score.begin(),score.end());
+        unordered_map<int,int>dic;
+        sort(sorted.rbegin(),sorted.rend());
+        for(auto i=0;i<score.size();i++){
+            dic[sorted[i]]=i;
+        }
+        vector<string>ans;
+        for(auto i:score){
+            switch(dic[i]){
+                case 0: ans.push_back("Gold Medal");break;
+                case 1: ans.push_back("Silver Medal");break;
+                case 2:  ans.push_back("Bronze Medal");break;
+                default: ans.push_back(to_string(dic[i]+1));
+            };
+        }
+        return ans;
+    }
+};
