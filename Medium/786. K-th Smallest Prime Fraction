@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<int> kthSmallestPrimeFraction(vector<int>& arr, int k) {
+
+        auto comp=[&](pair<int,int>a,pair<int,int>b){
+            return arr[b.first]*arr[a.second]>arr[a.first]*arr[b.second];
+        };
+
+        priority_queue<pair<int,int>,vector<pair<int,int>>,decltype(comp)>pq(comp);
+
+        for(auto i=0;i<arr.size()-1;i++){
+            for(auto j=i+1;j<arr.size();j++){
+                pq.push({i,j});
+            }
+
+            while(pq.size()>k)pq.pop();
+        }
+
+        return {arr[pq.top().first],arr[pq.top().second]};
+
+    }
+};
