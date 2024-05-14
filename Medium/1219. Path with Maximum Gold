@@ -1,0 +1,21 @@
+class Solution {
+public:
+    using func=function<int(int,int)>;
+    int getMaximumGold(vector<vector<int>>& grid) {
+        int n=grid.size(),m=grid[0].size();
+        func dfs=[&](int i,int j){
+            if(i<0 || j<0 || i>=n|| j>=m|| grid[i][j]<=0)return 0;
+            grid[i][j]=-grid[i][j];
+            int res=max({dfs(i-1,j),dfs(i+1,j),dfs(i,j-1),dfs(i,j+1)});
+            grid[i][j]=-grid[i][j];
+            return res+grid[i][j];
+        };
+        int ans=0;
+        for(auto i=0;i<n;i++){
+            for(auto j=0;j<m;j++){
+                ans=max(ans,dfs(i,j));
+            }
+        }
+        return ans;
+    }
+};
