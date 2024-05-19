@@ -1,0 +1,23 @@
+class Solution {
+public:
+    long long maximumValueSum(vector<int>& nums, int k, vector<vector<int>>& edges) {
+        int diff=INT_MAX;
+        int count=0;
+        long long sum=0;
+
+        for(auto i:nums){
+            if((i^k)>i){
+                sum+=(i^k);
+                count++;
+                diff=min(diff,(abs((i^k)-i)));
+            }
+            else{
+                sum+=(i);
+                diff=min(diff,(abs((i^k)-i)));
+            }
+        }
+        if(count%2==0)return sum;
+        return sum-diff;
+
+    }
+};
