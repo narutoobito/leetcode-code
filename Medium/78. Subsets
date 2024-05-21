@@ -1,0 +1,19 @@
+class Solution {
+public:
+    using func= function<void(int)>;
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>>ans;
+        vector<int>cur;
+        ans.push_back(cur);
+        func backtrack=[&](int i){
+            if(i==nums.size())return;
+            backtrack(i+1);
+            cur.push_back(nums[i]);
+            ans.push_back(cur);
+            backtrack(i+1);
+            cur.pop_back();
+        };
+        backtrack(0);
+        return ans;
+    }
+};
