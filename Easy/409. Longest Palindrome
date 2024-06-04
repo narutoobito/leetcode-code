@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int longestPalindrome(string s) {
+        unordered_map<char,int>dic;
+        int ans=0;
+        int count=0;
+        for(auto i:s){
+            dic[i]++;
+            if(dic[i]==2){
+                dic[i]=0;
+                ans+=2;
+                count--;
+            }
+            else{
+                count++;
+            }
+
+        }
+        return ans+(count?1:0);
+    }
+};
