@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<int> relativeSortArray(vector<int>& arr1, vector<int>& arr2) {
+        unordered_map<int,int>dic;
+        vector<int>ans;
+        int count=0;
+        for(auto i:arr1)dic[i]++;
+
+        for(auto i:arr2){
+            count+=dic[i];
+            for(auto j=0;j<dic[i];j++)ans.push_back(i);
+            dic.erase(i);
+        }
+
+        for(auto i:dic){
+            for(auto j=0;j<i.second;j++)ans.push_back(i.first);
+        }
+        sort(ans.begin()+count,ans.end());
+
+        return ans;
+    }
+};
