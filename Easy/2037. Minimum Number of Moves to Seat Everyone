@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int minMovesToSeat(vector<int>& seat, vector<int>& stu) {
+        sort(seat.begin(),seat.end());
+        sort(stu.begin(),stu.end());
+        int count=0;
+        for(auto i=0;i<stu.size();i++){
+            count+=abs(stu[i]-seat[i]);
+        }
+
+        return count;
+    }
+};
