@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int findCenter(vector<vector<int>>& edges) {
+        unordered_map<int,int>dic;
+        set<int>st;
+        for(auto i:edges){
+            dic[i[0]]++;
+            dic[i[1]]++;
+            st.insert(i[0]);
+            st.insert(i[1]);
+        }
+
+        for(auto i:dic){
+            if(i.second==st.size()-1)return i.first;
+        }
+        
+        return -1;
+    }
+};
