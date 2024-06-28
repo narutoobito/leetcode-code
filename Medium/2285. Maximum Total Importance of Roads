@@ -1,0 +1,23 @@
+class Solution {
+public:
+    long long maximumImportance(int n, vector<vector<int>>& road) {
+        vector<int>arr(n,0);
+        for(auto i=0;i<road.size();i++){
+            arr[road[i][0]]++;
+            arr[road[i][1]]++;
+        }
+
+        priority_queue<int>pq;
+
+        for(auto i:arr){
+            pq.push(i);
+        }
+        long long ans=0;
+
+        while(pq.size()){
+            ans+=(long long)pq.top()*(long long)n--;
+            pq.pop();
+        }
+        return ans;
+    }
+};
