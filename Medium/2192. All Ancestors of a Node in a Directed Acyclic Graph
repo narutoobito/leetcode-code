@@ -1,0 +1,29 @@
+class Solution {
+public:
+    using func=function<void(int,int)>;
+    vector<vector<int>> getAncestors(int n, vector<vector<int>>& edges) {
+        vector<vector<int>>adj(n,vector<int>());
+        for(auto i:edges){
+            adj[i[1]].push_back(i[0]);
+        }
+        vector<vector<int>>ans(n,vector<int>());
+        vector<int>check(n,-1);
+
+        func dfs=[&](int ind,int start){
+            for(auto i:adj[ind]){
+                if(check[i]==start)continue;
+                ans[start].push_back(i);
+                check[i]=start;
+                dfs(i,start);
+            }
+        };
+
+
+        for(auto i=0;i<n;i++){
+            dfs(i,i);
+        }
+
+        for(auto &i:ans)sort(i.begin(),i.end());
+        return ans;
+    }
+};
