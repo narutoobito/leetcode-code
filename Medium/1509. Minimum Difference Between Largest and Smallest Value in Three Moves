@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int minDifference(vector<int>& nums) {
+        if(nums.size()<4)return 0;
+        sort(nums.begin(),nums.end());
+        
+        int l=3,r=nums.size()-1;
+        int cur=nums[r]-nums[l];
+        for(auto i=1;i<4;i++){
+            cur=min(cur,nums[--r]-nums[--l]);
+        }
+        return cur;
+    }
+};
