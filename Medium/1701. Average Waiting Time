@@ -1,0 +1,33 @@
+class Solution {
+public:
+    double averageWaitingTime(vector<vector<int>>& arr) {
+        queue<int>q;
+        long long res=0;
+        int t=arr[0][0];
+        q.push(arr[0][1]);
+        int i=1;
+        
+        while(q.size()){
+            
+            t+=q.front();
+            res+=t;
+            q.pop();
+
+            while(i<arr.size() and arr[i][0]<=t){
+                q.push(arr[i++][1]);
+
+            }
+
+            
+            if(q.empty() and i<arr.size()){
+                t=arr[i][0];
+                q.push(arr[i++][1]);
+            }
+
+        }
+
+        for(auto i:arr)res-=i[0];
+        return double(res)/double(arr.size());
+
+    }
+};
