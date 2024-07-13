@@ -1,0 +1,42 @@
+class Solution {
+public:
+    vector<int> survivedRobotsHealths(vector<int>& pos, vector<int>& health, string dir) {
+        vector<int> ids(pos.size());
+        iota(begin(ids), end(ids), 0);
+        sort(begin(ids), end(ids), [&](int i, int j){ return pos[i] < pos[j]; });
+        stack<int>st;
+        int n=pos.size();
+        vector<int>ans;
+
+
+        for(auto i:ids){
+            if(dir[i]=='R'){
+                st.push(i);
+            }
+            else{
+                if(st.size()){
+                    
+                    while(st.size() and health[st.top()]<health[i]){
+                        health[st.top()]=0;
+                        st.pop();
+                        health[i]--;
+                    }
+                    if(st.size() and health[st.top()]==health[i]){
+                        health[i]=0;
+                        health[st.top()]=0;
+                        st.pop();
+                        continue;
+                    }
+                    if(st.size()){
+                        health[st.top()]--;
+                        health[i]=0;
+                    }
+                }
+
+            }
+        }
+
+        health.erase(remove(begin(health), end(health), 0), end(health));
+        return health;
+    }
+};
