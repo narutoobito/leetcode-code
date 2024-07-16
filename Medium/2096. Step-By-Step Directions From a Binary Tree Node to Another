@@ -1,0 +1,67 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+
+    TreeNode* common=NULL;
+    string getDirections(TreeNode* root, int s, int d) {
+        commonAncester(root,s,d);
+        int source=findS(common,s);
+        string des=findD(common,d);
+
+        // cout<<common->val<<endl;
+        // cout<<source<<" "<<des;
+        for(auto i=1;i<source;i++)des+='U';
+        reverse(des.begin(),des.end());
+        des.pop_back();
+        return des;
+    }
+
+    int findS(TreeNode* root,int s){
+        if(root==NULL)return 0;
+        if(root->val==s)return 1;
+        auto left=findS(root->left,s);
+        auto right=findS(root->right,s);
+
+        if(left!=right)return max(left,right)+1;
+        return 0;
+    }
+
+    string findD(TreeNode* root,int d){
+        if(root==NULL)return "";
+
+        if(root->val==d)return " ";
+        auto left=findD(root->left,d);
+        auto right=findD(root->right,d);
+
+        if(left!="")left+='L';
+        if(right!="")right+='R';
+
+        if(left=="")return right;
+        return left;
+    }
+
+    bool commonAncester(TreeNode* root,int s,int d){
+        if(root==NULL)return false;
+
+        auto left = commonAncester(root->left,s,d);
+        auto right = commonAncester(root->right,s,d);
+        
+        if((left && right) or ((left or right) and (root->val==s || root->val==d)) ){
+            common=root;
+            return false;
+        }
+
+        if(root->val==s || root->val==d|| left || right)return true;
+        return false;
+    }
+};
