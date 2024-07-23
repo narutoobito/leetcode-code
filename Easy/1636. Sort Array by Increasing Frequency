@@ -1,0 +1,20 @@
+class Solution {
+public:
+    vector<int> frequencySort(vector<int>& nums) {
+        unordered_map<int,int>dic;
+        for(auto i:nums){dic[i]++;}
+        priority_queue<pair<int,int>>pq;
+
+        for(auto i:dic){
+            pq.push({-i.second,i.first});
+        }
+        vector<int>ans;
+        while(pq.size()){
+            for(auto j=0;j<-pq.top().first;j++)
+            ans.push_back(pq.top().second);
+            pq.pop();
+        }
+        return ans;
+    }
+
+};
