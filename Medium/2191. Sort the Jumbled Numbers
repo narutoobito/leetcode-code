@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<int> sortJumbled(vector<int>& mapping, vector<int>& nums) {
+        vector<int> org;
+
+        for(auto i:nums){
+            string temp=to_string(i);
+            int cur=0;
+            for(auto i:temp){
+                cur=mapping[i-'0']+cur*10;
+            }
+            org.push_back(cur);
+        }
+        vector<int>ind(nums.size());
+        iota(ind.begin(),ind.end(),0);
+        sort(begin(ind),end(ind),[&](int a,int b){
+            return org[a]<org[b];
+        });
+
+        for(int i=0;i<org.size();i++){
+            org[i]=nums[ind[i]];
+        }
+
+        return org;
+
+    }
+
+};
