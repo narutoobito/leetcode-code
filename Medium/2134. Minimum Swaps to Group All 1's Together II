@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int minSwaps(vector<int>& nums) {
+        int n=nums.size();
+        int ans=0,c=0,count=0;
+        for(auto i:nums)if(i==1)c++;
+        for(auto i=0;i<n;i++)nums.push_back(nums[i]);
+        for(auto i=0;i<nums.size();i++){
+            if(i>=c){
+                count-=nums[i-c];
+            }
+            count+=nums[i];
+            ans=max(count,ans);
+        }
+
+        return c-ans;
+    }
+};
