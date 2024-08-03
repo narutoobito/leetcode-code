@@ -1,0 +1,17 @@
+class Solution {
+public:
+    bool canBeEqual(vector<int>& target, vector<int>& arr) {
+        unordered_map<int,int>dic;
+        int count=0;
+        for(auto i:target){
+            if(dic[i]==0)count++;
+            dic[i]++;
+        }
+        for(auto i:arr){
+            if(dic[i]==1)count--;
+            dic[i]--;
+            if(dic[i]<0)count++;
+        }
+        return count==0;
+    }
+};
