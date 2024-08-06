@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int minimumPushes(string word) {
+        vector<int>arr(26,0);
+        int ans=0;
+        char a='a';
+        for(auto i:word){
+            arr[i-a]++;
+        }
+        sort(arr.rbegin(),arr.rend());
+        int c=1,count=0;
+        for(auto i:arr){
+            ans+=i*c;
+            count++;
+            if(count==8){
+                count=0;
+                c++;
+            }
+
+        }
+        return ans;
+    }
+};
