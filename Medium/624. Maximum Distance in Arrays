@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int maxDistance(vector<vector<int>>& arr) {
+        pair<int,int>mini1={INT_MAX,-1},mini2={INT_MAX,-1},maxi1={INT_MIN,-1},maxi2={INT_MIN,-1};
+        for(auto i=0;i<arr.size();i++){
+            if(mini1.first>=arr[i][0]){
+                mini2=mini1;
+                mini1.first=arr[i][0];
+                mini1.second=i;
+                
+            }else
+            if(mini2.first>=arr[i][0]){
+                mini2.first=arr[i][0];
+                mini2.second=i;
+            }
+            if(maxi1.first<=arr[i].back()){
+                maxi2=maxi1;
+                maxi1.first=arr[i].back();
+                maxi1.second=i;
+                
+            }else
+            if(maxi2.first<=arr[i].back()){
+                maxi2.first=arr[i].back();
+                maxi2.second=i;
+            }     
+        }
+
+        if(mini1.second!=maxi1.second)return maxi1.first-mini1.first;
+        return max(maxi1.first-mini2.first,maxi2.first-mini1.first);
+    }
+};
