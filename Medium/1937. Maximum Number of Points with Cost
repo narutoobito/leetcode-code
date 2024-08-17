@@ -1,0 +1,26 @@
+class Solution {
+public:
+
+    long long maxPoints(vector<vector<int>>& points) {
+        int n=points.size(),m=points[0].size();
+        vector<long long>prev(points[0].size());
+        for(auto i=0;i<m;i++)prev[i]=points[0][i];
+        for(auto i=1;i<n;i++){
+            vector<long long>cur(m),left(m),right(m);
+            left[0]=prev[0], right[m-1]=prev[m-1];
+            for(auto j=1;j<m;j++)left[j]=max(left[j-1]-1,prev[j]);
+            for(auto j=m-2;j>=0;j--)right[j]=max(prev[j],right[j+1]-1);
+            for(auto j=0;j<m;j++){
+                cur[j]=max(left[j],right[j])+points[i][j];
+            }
+            prev=cur;
+        }
+        long long ans=0;
+        for(auto i:prev){
+            ans=max(ans,i);
+        }
+
+        return ans;
+    }
+    
+};
