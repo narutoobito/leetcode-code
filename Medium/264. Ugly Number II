@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int nthUglyNumber(int n) {
+        vector<int>arr;
+        int two=0,three=0,five=0;
+        arr.push_back(1);
+        while(arr.size()<n){
+            int cur=min({arr[two]*2,arr[three]*3,arr[five]*5});
+            if(cur%2==0)two++;
+            if(cur%3==0)three++;
+            if(cur%5==0)five++;
+            arr.push_back(cur);
+        }
+        return arr.back();
+    }
+};
