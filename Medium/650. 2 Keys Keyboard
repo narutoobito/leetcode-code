@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int memo[1001][1001];
+    int minSteps(int n) {
+        if(n==1)return 0;
+        memset(memo,-1,sizeof(memo));
+        return dp(1,1,n);
+    }
+
+    int dp(int cur,int clip,int tar){
+        if(cur>tar)return 100000;
+        if(cur==tar)return 1;
+        if(memo[cur][clip]!=-1)return memo[cur][clip];
+        return memo[cur][clip]= min(dp(cur+clip,clip,tar)+1,dp(cur+cur,cur,tar)+2);
+
+    }
+};
