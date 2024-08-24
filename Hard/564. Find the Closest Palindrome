@@ -1,0 +1,41 @@
+class Solution {
+public:
+    string nearestPalindromic(string s) {
+        int n=s.size();
+        vector<int>arr;
+        vector<long>ans;
+
+        string root= n%2?s.substr(0,n/2+1):s.substr(0,n/2);
+        int introot=stoi(root);
+        arr.push_back(introot);
+        arr.push_back(introot-1);
+        arr.push_back(introot+1);
+
+        
+
+        ans.push_back(pow(10,n-1)-1);
+        ans.push_back(pow(10,n)+1);
+
+        for(auto i:arr){
+            string post=to_string(i);
+            if(n%2)post.pop_back();
+            reverse(post.begin(),post.end());
+            string a=to_string(i)+post;
+            ans.push_back(stol(a));
+        }
+
+        int minDiff=INT_MAX; long res,num=stol(s);
+
+        for(auto i:ans){
+            if(i!=num and abs(i-num)<minDiff){
+                minDiff=abs(i-num);
+                res=i;
+            }
+            else if(minDiff==abs(i-num))res=min(res,i);
+        }
+
+        return to_string(res);
+        
+
+    }
+};
