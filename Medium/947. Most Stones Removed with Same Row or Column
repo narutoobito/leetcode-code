@@ -1,0 +1,36 @@
+class Solution {
+public:
+    using func= function<int(int)>;
+    int removeStones(vector<vector<int>>& stones) {
+        unordered_map<int,vector<int>>row,col;
+
+        int count=0;
+        for(auto i:stones){
+            row[i[0]].push_back(i[1]);
+            col[i[1]].push_back(i[0]);
+        }
+        
+        set<int>visited;
+        
+        func dfs = [&](int cur)->int{
+            if(visited.count(cur))return 0;
+            visited.insert(cur);
+            int res=row[cur].size();
+            for(auto c:row[cur]){
+                
+                for(auto r:col[c]){
+                    res+=dfs(r);
+                }
+            }
+            return res;
+        };
+
+
+        for(auto r:row){
+            
+            count+=max(0,dfs(r.first)-1);
+        }
+        return count;
+    }
+
+};
