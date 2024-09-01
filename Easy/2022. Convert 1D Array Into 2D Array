@@ -1,0 +1,15 @@
+class Solution {
+public:
+    vector<vector<int>> construct2DArray(vector<int>& arr, int m, int n) {
+        vector<vector<int>>grid(m,vector<int>(n));
+
+        if(arr.size()!= n*m)return {};
+
+        for(auto i=0;i<m;i++){
+            for(auto j=0;j<n;j++){
+                grid[i][j]= arr[i*n+j];
+            }
+        }
+        return grid;
+    }
+};
