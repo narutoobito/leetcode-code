@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int countConsistentStrings(string allowed, vector<string>& words) {
+        set<char>st(allowed.begin(),allowed.end());
+        int ans = words.size();
+        for(auto w:words){
+            for(auto c:w){
+                if(st.count(c)==0){
+                    ans--;
+                    break;
+                }
+            }
+        }
+        return ans;
+    }
+};
