@@ -1,0 +1,17 @@
+class Solution {
+public:
+    vector<int> xorQueries(vector<int>& arr, vector<vector<int>>& queries) {
+        vector<int>sum(arr.size()+1);
+        int n=arr.size();
+        for(auto i=0;i<n;i++){
+            sum[i+1]=sum[i]^arr[i];
+        }
+        vector<int>ans;
+        for(auto i:queries){
+            int start=i[0],end=i[1];
+            ans.push_back(sum[end+1] ^ sum[start]);
+        }
+
+        return ans;
+    }
+};
