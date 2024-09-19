@@ -1,0 +1,23 @@
+class Solution {
+public:
+    static bool comp(string a, string b){
+        string aa= a+b;
+        string bb= b+a;
+        return aa<bb;
+    }
+
+    string largestNumber(vector<int>& nums) {
+        vector<string>s;
+        for(auto i:nums){
+            s.push_back(to_string(i));
+        }
+        sort(rbegin(s),rend(s),comp);
+
+        string ans="";
+        for(auto i:s)ans+=i;
+
+        if(ans[0]=='0')return "0";
+
+        return ans;
+    }
+};
