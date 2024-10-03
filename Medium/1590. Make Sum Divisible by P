@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int minSubarray(vector<int>& nums, int p) {
+        int req=0;
+        for(auto i:nums)req=(req+i)%p;
+        int cur=0;
+        int ans=nums.size();
+
+        unordered_map<int,int>dic={{0,-1}};
+        for(auto i=0;i<nums.size();i++){
+            cur=(nums[i]+cur)%p;
+            dic[cur]=i;
+            int want= (cur-req+p)%p;
+            if(dic.count(want))ans=min(ans,i-dic[want]);
+        }   
+
+        return ans>=nums.size()?-1:ans;
+    }
+};
