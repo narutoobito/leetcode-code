@@ -1,0 +1,30 @@
+class Solution {
+public:
+    long long dividePlayers(vector<int>& skill) {
+        int n=skill.size();
+        
+        long long sum= accumulate(skill.begin(),skill.end(),0LL);
+        if(sum%(n/2))return -1;
+        long long tar= (sum*2)/n;
+
+        unordered_map<int,int>dic;
+
+        for(auto i:skill){
+            dic[i]++;
+        }
+        long long ans=0;
+
+        for(auto i:skill){
+            if(dic[i]>0){
+                if(dic[tar-i]>0){
+                    dic[i]--;
+                    dic[tar-i]--;
+                    ans+=i*(tar-i);
+                }
+                else return -1;
+            }
+        }
+
+        return ans;
+    }
+};
