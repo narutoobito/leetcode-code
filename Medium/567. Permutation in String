@@ -1,0 +1,39 @@
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+        unordered_map<char,int>dic;
+        int count=0,c=0;
+
+        for(auto i:s1){
+            if(dic[i]==0)count++;
+            dic[i]++;
+            
+        }
+
+        unordered_map<char,int>d;
+
+        int l=0;
+        for(auto r=0;r<s2.size();r++){
+            if(dic[s2[r]]==0){
+                l=r+1;
+                d.clear();
+                c=0;
+                continue;
+            }
+            
+            d[s2[r]]++;
+            if(d[s2[r]]==dic[s2[r]])c++;
+
+            while(d[s2[r]]>dic[s2[r]]){
+                if(d[s2[l]]==dic[s2[l]])c--;
+                d[s2[l]]--;l++;
+            }
+
+                
+        
+            if(c==count)return true;
+        }
+
+        return false;
+    }
+};
