@@ -1,0 +1,29 @@
+class Solution {
+public:
+    bool areSentencesSimilar(string s1, string s2) {
+        deque<string>a,b;
+        string cur="";
+        for(auto i:s1){
+            if(i==' ')a.push_back(cur),cur="";
+            else cur+=i;
+
+        }
+        a.push_back(cur),cur="";
+        for(auto i:s2){
+            if(i==' ')b.push_back(cur),cur="";
+            else cur+=i;
+
+        }
+        b.push_back(cur),cur="";
+
+
+        int i=0;
+        while(a.size()!=0 and b.size()!=0 and a.front()==b.front())a.pop_front(),b.pop_front();
+        
+        while(a.size()!=0 and b.size()!=0 and a.back()==b.back())a.pop_back(),b.pop_back();
+
+        if( a.size()==0 or b.size()==0)return true;
+        return false;
+        
+    }
+};
